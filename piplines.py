@@ -8,7 +8,7 @@ class StupidSpiderPipline():
 
     def __init__(self, data):
         with open("extract_data.csv", 'a+', encoding='utf-8') as f:
-            f.writelines(data["title"] + "," + data['time'] + "," + data["content"])
+            f.writelines(data["title"] + "," + data['time'] + "," + data["content"]+'\n')
 
 
 class OriginalWebContent():

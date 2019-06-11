@@ -11,7 +11,8 @@ from bs4 import BeautifulSoup
 from piplines import OriginalWebContent, UrlListPipline, process_data, StupidSpiderPipline, article2file
 
 SOGOU_URL = "http://www.sogou.com/web?query=" + Config.keyword + "+site%3A" + Config.url_list[0]
-BAIDU_URL = "http://www.baidu.com/s?wd=" + Config.keyword + " site%3A" + Config.url_list[0]
+BAIDU_URL_1 = "http://www.baidu.com/s?wd=" + Config.keyword + " site%3A" + Config.url_list[0]
+BAIDU_URL_2 = "http://www.baidu.com/s?wd=" + Config.keyword + " site%3A" + Config.url_list[1]
 GOOGLE_URL = "https://www.google.com/search?q=" + Config.keyword + "+site%3A" + Config.url_list[0]
 
 
@@ -46,11 +47,12 @@ def get_content(url):
     title = soup.title.string.strip()
 
     html = etree.HTML(response.text, etree.HTMLParser())
-    time = html.xpath(Rule.nbd_com_cn_xpath['time'])[0].strip()
+    time = html.xpath(Rule.thepaper_cn_xpath['time'])[0].strip()
     print(title,"-",time)
 
-    tags_content = html.xpath(Rule.nbd_com_cn_xpath['content'])[0]
+    tags_content = html.xpath(Rule.thepaper_cn_xpath['content'])[0]
     content = tags_content.xpath("string(.)").strip()
+
 
     data = {
         "title": title,
@@ -62,7 +64,7 @@ def get_content(url):
 
 
 if __name__ == "__main__":
-    # get_news_list(BAIDU_URL)
+    get_news_list(BAIDU_URL_2)
     links = process_data()
     for link in links:
         print("crawl link: {}".format(link))
