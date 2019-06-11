@@ -1,3 +1,12 @@
+"""
+提取摘要的步骤为
+1. 利用标点符号分句、对每一句话分词
+2. 将分词后的矩阵用sklearn中的tfidf函数求解单词的tfidf矩阵
+3. 求得的tfidf矩阵后，求解余弦相似阵
+4. 求得的余弦相似阵，即可调用textrank算法，求解句子的得分向量
+5. 得到得分向量，排序取前几名的句子作为文章的摘要。
+"""
+
 import numpy as np
 import pandas as pd
 import jieba
@@ -103,3 +112,4 @@ sim = sim_mat(vector_TF, sentences, leng)
 top = text_rank(sim, 200, 0.001)
 print(select_top(top, sentences, 3))
 display(stopwords)
+
